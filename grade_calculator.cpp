@@ -134,7 +134,7 @@ void grade_calculator::compute_sum() const {
         mt2 = ui -> fe -> value();
         fn = ui -> fp -> value();
         if ( ui -> scheme2 -> isChecked()){
-           text=QString(QString::number( 0.15 * hw /3 + 0.5 * mt1 + .35 * fn));
+           text=QString(QString::number( 0.15 * hw /3 + 0.5 * mt2 + .35 * fn));
         }
         else{
            text=QString(QString::number( 0.15 * hw /3 + 0.25*mt1 + 0.3 * mt2 + 0.35 * fn ));
