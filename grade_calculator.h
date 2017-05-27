@@ -15,8 +15,17 @@ public:
     explicit grade_calculator(QWidget *parent = 0);
     ~grade_calculator();
 
+signals:
+
+    int SomeValueChanged(int x);
+
+
+
 private slots:
    void compute_sum() const ;
+   void reset()  {
+       emit( SomeValueChanged( 0 ) );
+   };
 
 private:
     Ui::grade_calculator *ui;
