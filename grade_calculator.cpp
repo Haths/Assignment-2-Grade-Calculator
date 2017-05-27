@@ -7,6 +7,12 @@ grade_calculator::grade_calculator(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    ui->scheme1->setChecked(true);
+
+    ui->scheme1->setCheckable(true);
+
+    ui->scheme2->setCheckable(true);
+
     QObject::connect( ui->hw1 ,SIGNAL( valueChanged(int) ),
                       this, SLOT( compute_sum() )  );
 
@@ -36,6 +42,11 @@ grade_calculator::grade_calculator(QWidget *parent) :
     QObject::connect( ui->fn,SIGNAL( valueChanged(int) ),
                       this, SLOT( compute_sum() )  );
 
+    QObject::connect( ui->scheme1 ,SIGNAL( clicked(bool)),
+                      this, SLOT( compute_sum() ) );
+    QObject::connect( ui->scheme2,SIGNAL( clicked(bool) ),
+                      this, SLOT( compute_sum() )  );
+
 }
 
 grade_calculator::~grade_calculator()
@@ -48,10 +59,16 @@ void grade_calculator::compute_sum() const {
     double hw = ui->hw1 -> value() + ui->hw2 -> value() + ui->hw3 -> value() + ui->hw4 -> value() + ui->hw5 -> value() + ui->hw6 -> value() + ui->hw7 -> value() + ui->hw8 -> value() ;
     double mt1 = ui->mt1-> value() ;
     double mt2 = ui->mt2-> value() ;
-    double fn = ui ->fn-> value() ;
+    double mx = mt1;
+    if (mt2 > mt1){
+        mx = mt2;
+    }
 
-    QString text(
-                  QString::number( 0.25 * hw /8 + 0.2*mt1 + 0.2 * mt2 + 0.35 * fn )
-                );
+    double fn = ui ->fn-> value() ;
+    QString text(QString::number( 0.25 * hw /8 + 0.2*mt1 + 0.2 * mt2 + 0.35 * fn ));
+    if ( ui -> scheme2 -> isChecked()){
+       text=QString(QString::number( 0.25 * hw /8 + 0.3 * mx + 0.44 * fn ));
+    }
+
     ui->score->setText(text);
 }
